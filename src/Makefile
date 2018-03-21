@@ -3,4 +3,5 @@ main: main.o
 	rm main.o
 
 main.o: main.cc
-	g++ -c main.cc -I../vendor/png++-0.2.9/ -I../vendor/lpng1632/ -I GradientAlgorithm.h
+	g++ -c main.cc -I../vendor/png++-0.2.9/ -I../vendor/lpng1632/
+
