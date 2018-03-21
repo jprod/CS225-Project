@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "../vendor/png++-0.2.9/png.hpp"
+#include "GradientAlgorithm.h"
 
 int main() {
     std::cout<<"hello"<<std::endl;
