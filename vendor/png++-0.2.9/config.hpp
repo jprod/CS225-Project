@@ -33,6 +33,7 @@
 
 #include <stdlib.h>
 
+#define _WIN32
 // Endianness test
 #if defined(__GLIBC__)
 
