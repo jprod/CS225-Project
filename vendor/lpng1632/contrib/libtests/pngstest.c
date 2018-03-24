@@ -29,7 +29,7 @@
  * than the one being built here:
  */
 #ifdef PNG_FREESTANDING_TESTS
-#  include <png.h>
+#  include "../../png.h"
 #else
 #  include "../../png.h"
 #endif
