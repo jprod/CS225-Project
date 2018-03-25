@@ -1,0 +1,27 @@
+﻿Group Projects and Presentation
+CS225
+Work in groups of 2 or 3 people.  Each group will choose or be assigned a group topic.  Your project MUST compile and run on prclab and must use C++ unless you receive instructor approval.
+C++ Program and Style Guide (80%)
+Select a C++ program idea.  Meet with your group and agree on coding style guide for your group.  Discuss program design together and divide the programming tasks equally.  (If you generate any notes/diagrams during design meetings, feel free to submit those when you turn in the project) Your finished project should demonstrate the following concepts we learned in class:
+thoughtful selection of variable names, function names, and class names.
+division of code into multiple header and source code files
+if statements
+while, do-while, and/or for loops
+functions
+class definitions
+constructors and destructors
+operator overloading
+object composition
+inheritance
+Makefile
+exceptions
+file I/O
+a UML diagram
+demonstration of a  C++ command/function/concept that we have not covered in class yet
+good programming practices
+Type up a style guide that your group has agreed on. (In class we talked about Google’s coding guidelines: https://google.github.io/styleguide/cppguide.html  Your Style Guide doesn’t have to be nearly this extensive, but when I look at the files produced by different group members, coding styles should match.)
+Include a comment section at the top of each file with the name of the Group member that created the Class/Code.  Each group member should be responsible for coding at least 1 file/class but other group members can/should review the code.  
+Presentation (20%) 
+Create a PowerPoint (or other graphical) presentation that is aimed at your target audience (our class).  
+3-5 minutes long.  Presentations will be done in class.  Be able to correctly use C++ vocabulary words from class during your presentation (ex. virtual function, abstract base class, overloading, overriding, scope resolution operator).  
+You will be expected to be an attentive listener during all of your classmates’ presentations.
