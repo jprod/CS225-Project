@@ -1,5 +1,5 @@
 main: main.o
-	g++ main.o -o main ../vendor/libpng/lib/libpng.a ../vendor/zlib/lib/libz.a 
+	g++ main.o -o main ../vendor/libpng/lib/libpng16.a ../vendor/zlib/lib/libz.a 
 	rm main.o
 
 main.o: main.cc
