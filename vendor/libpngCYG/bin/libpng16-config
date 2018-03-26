@@ -3,7 +3,7 @@
 # libpng-config
 # provides configuration info for libpng.
 
-# Copyright (C) 2002 Glenn Randers-Pehrson
+# Copyright (C) 2002, 2004, 2006, 2007 Glenn Randers-Pehrson
 
 # This code is released under the libpng license.
 # For conditions of distribution and use, see the disclaimer
@@ -11,27 +11,24 @@
 
 # Modeled after libxml-config.
 
-version=1.6.34
-prefix=""
-libdir=""
-libs=""
-I_opts=""
-L_opts=""
+version="1.6.34"
+prefix="/cygdrive/c/CLibs/libpng"
+exec_prefix="/cygdrive/c/CLibs/libpng"
+libdir="/cygdrive/c/CLibs/libpng/lib"
+includedir="/cygdrive/c/CLibs/libpng/include/libpng16"
+libs="-lpng16"
+all_libs="-lpng16 -lz -lm"
+I_opts="-I${includedir}"
+L_opts="-L${libdir}"
 R_opts=""
 cppflags=""
 ccopts=""
 ldopts=""
 
-prefix="/home/rodrj116/CS225_Project/vendor/libpng"
-I_opts="-I/home/rodrj116/CS225_Project/vendor/libpng/include/libpng16"
-L_opts="-L/home/rodrj116/CS225_Project/vendor/libpng/lib"
-R_opts="-Wl,-rpath,/home/rodrj116/CS225_Project/vendor/libpng/lib"
-libs="-lpng16 -lz -lm"
-
 usage()
 {
     cat <<EOF
-Usage: libpng-config [OPTION] ...
+Usage: $0 [OPTION] ...
 
 Known values for OPTION are:
 
@@ -106,12 +103,17 @@ while test $# -gt 0; do
         echo ${R_opts}
         ;;
 
+    --ldopts)
+        echo ${ldopts}
+        ;;
+
     --ldflags)
-        echo ${ldflags} ${L_opts} ${R_opts} ${libs}
+        echo ${ldopts} ${L_opts} ${R_opts} ${libs}
         ;;
 
     --static)
         R_opts=""
+        libs=${all_libs}
         ;;
 
     *)
