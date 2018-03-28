@@ -2,7 +2,6 @@
 #define _TRI_RADIAL_GRADIENT_H_
 
 #include <cstdlib>
-#include <algorithm>    // std::max_element
 #include "GradientAlgorithm.hpp"
 #include "Point.hpp"
 
@@ -11,14 +10,21 @@ class TriRadialGradient: public GradientAlgorithm {
     /* generates a point with a random number from 0
      * to imgWidth for x and from 0 to imgHeight for y
      */
-    Point randomPoint(int imgWidth, int imgHeight) {
-        Point p(rand() * imgWidth, rand() * imgHeight);
-        return p;
+    Point randomPoint(int xMax, int yMin) {
+        return Point(randDouble() * xMax, randDouble() * yMin);
+    }
+    // generates a random double between 0 and 1 (inclusive)
+    double randDouble() {
+        return ((double)rand())/INT_MAX;
     }
     
     public:
     void applyGradient(image<rgb_pixel> &img) {
-        Point rPoint(0,0);// = randomPoint(img.get_width(), img.get_height());
+//        Point rPoint(0,0);
+//        Point gPoint(10,10);
+//        Point bPoint(100,100);
+        
+        Point rPoint = randomPoint(img.get_width(), img.get_height());
         Point gPoint = randomPoint(img.get_width(), img.get_height());
         Point bPoint = randomPoint(img.get_width(), img.get_height());
         
@@ -35,6 +41,10 @@ class TriRadialGradient: public GradientAlgorithm {
                 img.set_pixel(x, y, rgb_pixel(r, g, b));
             }
         }
+        
+        img.set_pixel(rPoint.x, rPoint.y, rgb_pixel(255, 255, 255));
+        img.set_pixel(gPoint.x, gPoint.y, rgb_pixel(255, 255, 255));
+        img.set_pixel(bPoint.x, bPoint.y, rgb_pixel(255, 255, 255));
     }
     
     
@@ -46,7 +56,12 @@ class TriRadialGradient: public GradientAlgorithm {
         
         int dists[] = {topL - p, topR - p, botL - p, botR - p};
         
-        return std::max(
+        int max = dists[0];
+        for (int i = 1; i < 4; i++)
+            if (max < dists[i])
+                max = dists[i];
+        
+        return max;
     }
 };
 

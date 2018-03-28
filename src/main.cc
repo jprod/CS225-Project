@@ -19,8 +19,10 @@ int main() {
     image<rgb_pixel> img(width, height);
     
     // apply some gradient
-    GradientAlgorithm &algorithm;
-    algorithm = new TriRadialGradient();
+//    GradientAlgorithm *algorithm;
+//    algorithm = new TriRadialGradient();
+//    algorithm->applyGradient(img);
+    TriRadialGradient algorithm;
     algorithm.applyGradient(img);
     
     // save the image
