@@ -1,16 +1,16 @@
-Header Files:
+## Header Files:
   -use #define guards
   -use prototyping
   -include system libraries, then project header files
 
-Scope:
+## Scope:
   - ok to use static variables
   - no global variables
   - ok to initialize variables
   - ok to use functions as parameters to other functions unless line is too long
   - no namespace declation
 
-Classes:
+## Classes:
   - only use classes
   - use inheritance instead of composition
   - use multiple inheritence sparingly
@@ -18,13 +18,13 @@ Classes:
   - declare variables, then constructors, then function
   - private, protected, then public variables and functions
 
-Functions:
+## Functions:
   - use output parameters sparingly
   - put output parameter after the input parameters
   - perfer references over pointers
   - use default arguments instead of overloaded functions
 
-Syntax:
+## Syntax:
   - 4 spaces
   - 1 empty line between each function definition
   - open brace on same line
