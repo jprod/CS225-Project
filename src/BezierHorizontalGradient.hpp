@@ -47,12 +47,11 @@ T bezierRecur(double t, T point[], int pointLen) {
 
 class BezierHorizontalGradient: public GradientAlgorithm {
 private:
-    /* Set of Bit Masks for an longlong color alpha notations
-    Could be placed elsewhere */
-    const long long redMask   = 0xFF000000;
-    const long long greenMask = 0x00FF0000;
-    const long long blueMask  = 0x0000FF00;
-    const long long alphaMask  = 0x000000FF;
+    /* Set of Bit Masks for a longlong color alpha notations */
+    static long long redMask;
+    static long long greenMask;
+    static long long blueMask;
+    static long long alphaMask;
     /* A buffer for all the color points */
     ColorPoint colorBuf[20];
     int colorBufLen;
@@ -90,5 +89,9 @@ public:
         }
     }
 };
+long long BezierHorizontalGradient::redMask    = 0xFF000000;
+long long BezierHorizontalGradient::greenMask  = 0x00FF0000;
+long long BezierHorizontalGradient::blueMask   = 0x0000FF00;
+long long BezierHorizontalGradient::alphaMask  = 0x000000FF;
 
 #endif // _BEZIER_HORIZONTAL_GRDIENT_H_
