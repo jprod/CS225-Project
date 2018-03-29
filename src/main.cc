@@ -25,18 +25,18 @@ int main() {
 //    algorithm->applyGradient(img);
 
     /* Inputs to the parameters of the bezier funct*/
-    long long p0;
-    std::cout << "Color Point 0: ";
-    std::cin >> std::hex >> p0;
-    long long p1;
-    std::cout << "Color Point 1: ";
-    std::cin >> std::hex >> p1;
-    long long p2;
-    std::cout << "Color Point 2: ";
-    std::cin >> std::hex >> p2;
-    long long param[3] = {p0, p1, p2};
+    // long long p0;
+    // std::cout << "Color Point 0: ";
+    // std::cin >> std::hex >> p0;
+    // long long p1;
+    // std::cout << "Color Point 1: ";
+    // std::cin >> std::hex >> p1;
+    // long long p2;
+    // std::cout << "Color Point 2: ";
+    // std::cin >> std::hex >> p2;
+    long long param[20] = {0xd76969FF, 0x42d5ebFF, 0xedbd2dFF};
     /* Bezier Function */
-    BezierHorizontalGradient algorithm(param);
+    BezierHorizontalGradient algorithm(param, 3);
     algorithm.dispColors();
 
     // TriRadialGradient algorithm;
