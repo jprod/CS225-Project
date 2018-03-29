@@ -5,21 +5,22 @@
 #include "GradientAlgorithm.hpp"
 #include "ColorPoint.hpp"
 
+/* Bezier Quadratic implementation; three points */
 template<class T>
 T bezierQuad(double t, T p0, T p1, T p2) {
     double nt = (1.0 - t);
-    /* Bezier Quadraic Equation */
+    /* Bezier Quadraic Formula */
     return (nt * (nt * p0 + t * p1) + t * (nt * p1 + t * p2));
 }
 
 /* Bezier Recursion for n number of Bezier points */
 template<class T>
 T bezierRecur(double t, T point[], int pointLen) {
-    /* When the function can be evalutated in a quadratic way */
+    /* When the function can be evalutated in a quadratic way 
+        Or recurse with formula*/
     if (pointLen <= 3) {
         return bezierQuad(t, point[0], point[1], point[2]);
-    }
-    else {
+    } else {
         double nt = (1.0 - t);
         return (nt * bezierRecur(t, point, pointLen - 1) + t * bezierRecur(t, point + 1, pointLen - 1));
     }
@@ -47,6 +48,7 @@ public:
     /* Moving the inputed long longs into the color point buffer */
     BezierHorizontalGradient(long long p0[], int pointLen) {
         for (int i = 0; i < pointLen; i++) {
+            /* Apply mask and move bits */
             colorBuf[i].red = (p0[i] & redMask) >> 6*4;
             colorBuf[i].green = (p0[i] & greenMask) >> 4*4;
             colorBuf[i].blue = (p0[i] & blueMask) >> 2*4;
@@ -59,10 +61,11 @@ public:
         for (int x = 0; x < img.get_width(); x++) {
             for (int y = 0; y < img.get_height(); y++) {
                 double t = ((double)y / img.get_height());
-                double r = bezierRecur(t, colorBuf, colorBufLen).red;
-                double g = bezierRecur(t, colorBuf, colorBufLen).green;
-                double b = bezierRecur(t, colorBuf, colorBufLen).blue;
-                double a = bezierRecur(t, colorBuf, colorBufLen).alpha;
+                ColorPoint grad = bezierRecur(t, colorBuf, colorBufLen);
+                double r = grad.red;
+                double g = grad.green;
+                double b = grad.blue;
+                double a = grad.alpha;
                 img.set_pixel(x, y, rgba_pixel(r, g, b, a));
             }
         }

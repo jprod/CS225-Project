@@ -4,7 +4,7 @@
 
 /* color point class */
 class ColorPoint {
-    public:
+public:
     double red; 
     double green; 
     double blue; 

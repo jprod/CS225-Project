@@ -24,7 +24,7 @@ int main() {
 //    algorithm = new TriRadialGradient();
 //    algorithm->applyGradient(img);
 
-    /* Inputs to the parameters of the bezier funct*/
+    /* Inputs to the parameters of the bezier funct */
     // long long p0;
     // std::cout << "Color Point 0: ";
     // std::cin >> std::hex >> p0;
@@ -34,12 +34,20 @@ int main() {
     // long long p2;
     // std::cout << "Color Point 2: ";
     // std::cin >> std::hex >> p2;
-    long long param[20] = {0xd76969FF, 0x42d5ebFF, 0xedbd2dFF};
+    // long long param[20] = {p0, p1, p2};
+    // int paramLen = 3;
+
+    /* Hardcoded bezier parameters */
+    long long param[20] = {0xd76969FF, 0x42d5ebFF, 0xedbd2dFF, 0x99AA11F0};
+    int paramLen = 4;
+
     /* Bezier Function */
-    BezierHorizontalGradient algorithm(param, 3);
+    BezierHorizontalGradient algorithm(param, paramLen);
     algorithm.dispColors();
 
     // TriRadialGradient algorithm;
+    
+    /* Apply gradient to image */
     algorithm.applyGradient(img);
     
     // save the image
