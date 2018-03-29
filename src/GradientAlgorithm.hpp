@@ -7,7 +7,7 @@ using namespace png;
 
 class GradientAlgorithm {
   public:
-    virtual void applyGradient(image<rgb_pixel>&) = 0;
+    virtual void applyGradient(image<rgba_pixel>&) = 0;
 };
 
 #endif // _GRADIENT_ALGORITHM_H_

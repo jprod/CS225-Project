@@ -19,7 +19,7 @@ class TriRadialGradient: public GradientAlgorithm {
     }
     
     public:
-    void applyGradient(image<rgb_pixel> &img) {
+    void applyGradient(image<rgba_pixel> &img) {
 //        Point rPoint(0,0);
 //        Point gPoint(10,10);
 //        Point bPoint(100,100);
@@ -38,17 +38,17 @@ class TriRadialGradient: public GradientAlgorithm {
                 double r = 255*(current - rPoint)/farR;
                 double g = 255*(current - gPoint)/farG;
                 double b = 255*(current - bPoint)/farB;
-                img.set_pixel(x, y, rgb_pixel(r, g, b));
+                img.set_pixel(x, y, rgba_pixel(r, g, b, 255));
             }
         }
         
-        img.set_pixel(rPoint.x, rPoint.y, rgb_pixel(255, 255, 255));
-        img.set_pixel(gPoint.x, gPoint.y, rgb_pixel(255, 255, 255));
-        img.set_pixel(bPoint.x, bPoint.y, rgb_pixel(255, 255, 255));
+        img.set_pixel(rPoint.x, rPoint.y, rgba_pixel(255, 255, 255, 255));
+        img.set_pixel(gPoint.x, gPoint.y, rgba_pixel(255, 255, 255, 255));
+        img.set_pixel(bPoint.x, bPoint.y, rgba_pixel(255, 255, 255, 255));
     }
     
     
-    int furthestDistance(Point p, image<rgb_pixel> &img) {
+    int furthestDistance(Point p, image<rgba_pixel> &img) {
         Point topL(0, 0);
         Point topR(img.get_width(), 0);
         Point botL(0, img.get_height());
