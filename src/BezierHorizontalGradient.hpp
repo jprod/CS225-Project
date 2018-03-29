@@ -75,7 +75,8 @@ public:
         colorBufLen = pointLen;
     }
     BezierHorizontalGradient() {
-        BezierHorizontalGradient({0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8}, 4);
+        long long param[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
+        BezierHorizontalGradient(param, 4);
     }
     /* Applying the gradents with the bezier equation 
         also applys dither to the gradient */

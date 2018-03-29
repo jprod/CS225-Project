@@ -7,6 +7,7 @@
 #include "HorizontalGradient.hpp"
 #include "TriRadialGradient.hpp"
 #include "BezierHorizontalGradient.hpp"
+#include "CurveGradient.hpp"
 
 using namespace png;
 
@@ -20,9 +21,9 @@ int main() {
     image<rgba_pixel> img(width, height);
     
     // apply some gradient
-//    GradientAlgorithm *algorithm;
-//    algorithm = new TriRadialGradient();
-//    algorithm->applyGradient(img);
+    GradientAlgorithm *algorithm;
+    algorithm = new CurveGradient();
+    algorithm->applyGradient(img);
 
     /* Inputs to the parameters of the bezier funct */
     // long long p0;
@@ -37,25 +38,21 @@ int main() {
     // long long param[20] = {p0, p1, p2};
     // int paramLen = 3;
 
-    /* Hardcoded bezier parameters */
-    long long param[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
-    int paramLen = 4;
-
     /* Bezier Function */
-    BezierHorizontalGradient algorithm(param, paramLen);
-    algorithm.dispColors();
+//    BezierHorizontalGradient algorithm();
+//    algorithm.dispColors();
 
     // TriRadialGradient algorithm;
     
     /* Apply gradient to image */
-    algorithm.applyGradient(img);
+//    algorithm.applyGradient(img);
     
     // save the image
-    using namespace std;
-    // string outputFile;
-    // cout << "output file:";
-    // cin >> outputFile;
-    // img.write(outputFile);
+//    using namespace std;
+//    string outputFile;
+//    cout << "output file:";
+//    cin >> outputFile;
+//    img.write(outputFile);
 
     /* Temp Auto Test PNG */
     img.write("test1.png");
