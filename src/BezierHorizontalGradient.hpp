@@ -52,7 +52,6 @@ private:
     static long long greenMask;
     static long long blueMask;
     static long long alphaMask;
-    static long long defaultParam[20];
     /* A buffer for all the color points */
     ColorPoint colorBuf[20];
     int colorBufLen;
@@ -75,6 +74,9 @@ public:
         }
         colorBufLen = pointLen;
     }
+    BezierHorizontalGradient() {
+        BezierHorizontalGradient({0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8}, 4);
+    }
     /* Applying the gradents with the bezier equation 
         also applys dither to the gradient */
     void applyGradient(image<rgba_pixel> &img) {
@@ -95,6 +97,5 @@ long long BezierHorizontalGradient::redMask    = 0xFF000000;
 long long BezierHorizontalGradient::greenMask  = 0x00FF0000;
 long long BezierHorizontalGradient::blueMask   = 0x0000FF00;
 long long BezierHorizontalGradient::alphaMask  = 0x000000FF;
-long long defaultParam[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
 
 #endif // _BEZIER_HORIZONTAL_GRDIENT_H_
