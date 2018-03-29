@@ -5,6 +5,25 @@
 #include "GradientAlgorithm.hpp"
 #include "ColorPoint.hpp"
 
+/* Dither function for smoother gradient */
+double dither(double &t, int x, int y) {
+    int ditherLvl = 3;
+    for (int i = 1; i < ditherLvl; i ++) {
+    ((y % (i+1) && x % (i+1)) || (!(y % (i+1)) && !(x % (i+1)))) ?
+                        t += i : t -= i;
+    }
+    return t;
+}
+
+/* Binds t if it goes out of range */
+double bindBounds(double &t) {
+    if (t > 1) 
+        t = 1;
+    else if (t < 0) 
+        t = 0;
+    return t;
+}
+
 /* Bezier Quadratic implementation; three points */
 template<class T>
 T bezierQuad(double t, T p0, T p1, T p2) {
@@ -56,17 +75,17 @@ public:
         }
         colorBufLen = pointLen;
     }
-    /* Applying the gradents with the bezier equation */
+    /* Applying the gradents with the bezier equation 
+        also applys dither to the gradient */
     void applyGradient(image<rgba_pixel> &img) {
         for (int x = 0; x < img.get_width(); x++) {
             for (int y = 0; y < img.get_height(); y++) {
-                double t = ((double)y / img.get_height());
-                ColorPoint grad = bezierRecur(t, colorBuf, colorBufLen);
-                double r = grad.red;
-                double g = grad.green;
-                double b = grad.blue;
-                double a = grad.alpha;
-                img.set_pixel(x, y, rgba_pixel(r, g, b, a));
+                double t = (double)x;
+                dither(t, x, y);
+                t /= img.get_width();
+                bindBounds(t);
+                ColorPoint bz = bezierRecur(t, colorBuf, colorBufLen);
+                img.set_pixel(x, y, rgba_pixel(bz.red, bz.green, bz.blue, bz.alpha));
             }
         }
     }

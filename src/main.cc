@@ -38,7 +38,7 @@ int main() {
     // int paramLen = 3;
 
     /* Hardcoded bezier parameters */
-    long long param[20] = {0xd76969FF, 0x42d5ebFF, 0xedbd2dFF, 0x99AA11F0};
+    long long param[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
     int paramLen = 4;
 
     /* Bezier Function */
