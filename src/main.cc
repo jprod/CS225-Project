@@ -12,53 +12,45 @@
 
 using namespace png;
 
-int main() {
-    std::cout<<"-----------------------------------"<<
-    std::endl<<"xxx*** GRADIENT GENERATOR ++ ***xxx"<<
-    std::endl<<"-----------------------------------"<<std::endl<<std::endl;
-    std::cout<<"Please enter width in px"<<std::endl<<" :  ";
-    std::string userWidth;
-    std::getline (std::cin,userWidth);
-    int widthBuf;
-    if (userWidth == "") {
-        widthBuf = 1000;
+void getInput(int& varBuf) {
+    std::string userVar;
+    std::getline (std::cin,userVar);
+    if (userVar.find_last_of((std::string)"px") != std::string::npos) {
+        userVar = userVar.substr(0,userVar.find_last_of((std::string)"px"));
+    }
+    if (userVar == "") {
+        varBuf = 1000;
     } else {
         std::stringstream ss;
-        ss<<userWidth;
-        ss>>widthBuf;
+        ss<<userVar;
+        ss>>varBuf;
         if (ss.fail()) {
             std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
             ss.clear();
             std::string dummy;
             ss >> dummy;
-            widthBuf = 1000;
-        } else if (widthBuf <= 0) {
-           widthBuf = 1000; 
+            varBuf = 1000;
+        } else if (varBuf <= 0) {
+            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
+            varBuf = 1000;
         }
     }
+}
+
+int main() {
+    std::cout<<std::endl;
+    std::cout<<"-----------------------------------"<<std::endl;
+    std::cout<<"xxx*** GRADIENT GENERATOR ++ ***xxx"<<std::endl;
+    std::cout<<"-----------------------------------"<<std::endl<<std::endl;
+    
+    std::cout<<"Please enter width in px"<<std::endl<<" :  ";
+    int widthBuf;
+    getInput(widthBuf);
     const int width = widthBuf;
 
-
     std::cout<<"Please enter height in px"<<std::endl<<" :  ";
-    std::string userHeight;
-    std::getline (std::cin,userHeight);
     int heightBuf;
-    if (userHeight == "") {
-        heightBuf = 1000;
-    } else {
-        std::stringstream ss;
-        ss<<userHeight;
-        ss>>heightBuf;
-        if (ss.fail()) {
-            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
-            ss.clear();
-            std::string dummy;
-            ss >> dummy;
-            heightBuf = 1000;
-        } else if (heightBuf <= 0) {
-            heightBuf = 1000;
-        }
-    }
+    getInput(heightBuf);
     const int height = heightBuf;
 
     /* Initialize height */
@@ -143,17 +135,15 @@ int main() {
 
     std::cout<<"Enter the output file name"<<std::endl<<" :  ";
     std::string outputFile;
-    std::string outputLocation;
     std::cin >> outputFile;
     if (outputFile.find((std::string)".png\n") != std::string::npos) {
-       outputLocation = outputFile;
     } else if (outputFile.find_last_of((std::string)".") != std::string::npos) {
-        outputLocation = outputFile.substr(0,outputFile.find_last_of((std::string)".")) + ".png";
+        outputFile = outputFile.substr(0,outputFile.find_last_of((std::string)".")) + ".png";
     } else {
-        outputLocation = outputFile + ".png";
+        outputFile += ".png";
     }
-    img.write(outputLocation);
-    std::cout<<"File saved to $(pwd)/"<< outputLocation <<std::endl;
+    img.write(outputFile);
+    std::cout<<"File saved to $(pwd)/"<< outputFile <<std::endl<<std::endl;
     /* Temp Auto Test PNG */
     // img.write("test1.png");
     

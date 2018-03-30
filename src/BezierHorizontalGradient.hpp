@@ -15,6 +15,15 @@ double dither(double &t, int x, int y) {
     return t;
 }
 
+double ditherConstant(double &t, int x, int y) {
+    int ditherLvl = 2;
+    for (int i = 1; i < ditherLvl; i ++) {
+    ((y % (i+1) && x % (i+1)) || (!(y % (i+1)) && !(x % (i+1)))) ?
+                        t += 1 : t -= 1;
+    }
+    return t;
+}
+
 /* Binds t if it goes out of range */
 double bindBounds(double &t) {
     if (t > 1) 
