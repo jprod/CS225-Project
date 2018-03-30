@@ -32,8 +32,8 @@ class TriRadialGradient: public GradientAlgorithm {
         int farG = furthestDistance(gPoint, img);
         int farB = furthestDistance(bPoint, img);
         
-        for (int x = 0; x < img.get_width(); x++) {
-            for (int y = 0; y < img.get_height(); y++) {
+        for (int x = 0; x < (int)img.get_width(); x++) {
+            for (int y = 0; y < (int)img.get_height(); y++) {
                 Point current(x, y);
                 double r = 255*(current - rPoint)/farR;
                 double g = 255*(current - gPoint)/farG;

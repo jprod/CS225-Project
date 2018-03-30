@@ -75,14 +75,21 @@ public:
         colorBufLen = pointLen;
     }
     BezierHorizontalGradient() {
-        long long param[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
-        BezierHorizontalGradient(param, 4);
+        long long p0[4] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
+        for (int i = 0; i < 4; i++) {
+            /* Apply mask and move bits */
+            colorBuf[i].red = (p0[i] & redMask) >> 6*4;
+            colorBuf[i].green = (p0[i] & greenMask) >> 4*4;
+            colorBuf[i].blue = (p0[i] & blueMask) >> 2*4;
+            colorBuf[i].alpha = (p0[i] & alphaMask);
+        }
+        colorBufLen = 4;
     }
     /* Applying the gradents with the bezier equation 
         also applys dither to the gradient */
     void applyGradient(image<rgba_pixel> &img) {
-        for (int x = 0; x < img.get_width(); x++) {
-            for (int y = 0; y < img.get_height(); y++) {
+        for (int x = 0; x < (int)img.get_width(); x++) {
+            for (int y = 0; y < (int)img.get_height(); y++) {
                 double t = (double)x;
                 dither(t, x, y);
                 t /= img.get_width();

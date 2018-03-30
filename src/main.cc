@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>      // std::stringstream
 #include <string>
 #include <cstdlib> // for rand()
 #include <ctime> // for time()
@@ -12,18 +13,95 @@
 using namespace png;
 
 int main() {
-    const int width = 1000;
-    const int height = width;
-    
-    // seed the rng
-    srand(time(NULL));
-    
+
+    std::cout<<"Please enter width"<<std::endl<<" :  ";
+    std::string userWidth;
+    std::getline (std::cin,userWidth);
+    int widthBuf;
+    if (userWidth == "") {
+        widthBuf = 1000;
+    } else {
+        std::stringstream ss;
+        ss<<userWidth;
+        ss>>widthBuf;
+        if (ss.fail()) {
+            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
+            ss.clear();
+            std::string dummy;
+            ss >> dummy;
+            widthBuf = 1000;
+        } else if (widthBuf == 0) {
+           widthBuf = 1000; 
+        }
+    }
+    const int width = widthBuf;
+
+
+    std::cout<<"Please enter height"<<std::endl<<" :  ";
+    std::string userHeight;
+    std::getline (std::cin,userHeight);
+    int heightBuf;
+    if (userHeight == "") {
+        heightBuf = 1000;
+    } else {
+        std::stringstream ss;
+        ss<<userHeight;
+        ss>>heightBuf;
+        if (ss.fail()) {
+            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
+            ss.clear();
+            std::string dummy;
+            ss >> dummy;
+            heightBuf = 1000;
+        } else if (heightBuf == 0) {
+            heightBuf = 1000;
+        }
+    }
+    const int height = heightBuf;
+
+    /* Initialize height */
     image<rgba_pixel> img(width, height);
     
-    // apply some gradient
+    /* Seed the rng */
+    srand(time(NULL));
+
+    
+    std::cout<<"Please enter"<<std::endl<<"1 for HorizontalGradient"<<std::endl<<"2 for TriRadialGradient"
+    <<std::endl<<"3 for BezierHorizontalGradient"<<std::endl<<"4 for CurveGradient"<<std::endl<<" :  ";
+    int user;
+    std::cin>>user;
+    while (! std::cin || user < 1 || user > 4) {
+        std::cin.clear(); //clear error flag
+        std::cin.ignore(INT_MAX, '\n'); 
+        std::cout<<"Error. Try again. ";
+        std::cout<<"Enter a number between 1 and 4 (inclusive)"<<std::endl<<" :  ";
+        std::cin>>user;
+    }
     GradientAlgorithm *algorithm;
-    algorithm = new CurveGradient();
+    switch(user) {
+        case 1: {
+            algorithm = new HorizontalGradient();
+            break; }
+        case 2: {
+            algorithm = new TriRadialGradient();
+            break; }
+        case 3: {
+            algorithm = new BezierHorizontalGradient();
+            break; }
+        case 4: {
+            algorithm = new CurveGradient();
+            break; }
+        default: {
+            algorithm = new HorizontalGradient();
+            break; }
+    }
     algorithm->applyGradient(img);
+
+
+    // apply some gradient
+    // GradientAlgorithm *algorithm;
+    // algorithm = new CurveGradient();
+    // algorithm->applyGradient(img);
 
     /* Inputs to the parameters of the bezier funct */
     // long long p0;
