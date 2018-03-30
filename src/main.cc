@@ -81,19 +81,24 @@ int main() {
     switch(user) {
         case 1: {
             algorithm = new HorizontalGradient();
-            break; }
+            break; 
+        }
         case 2: {
             algorithm = new TriRadialGradient();
-            break; }
+            break; 
+        }
         case 3: {
             algorithm = new BezierHorizontalGradient();
-            break; }
+            break; 
+        }
         case 4: {
             algorithm = new CurveGradient();
-            break; }
+            break; 
+        }
         default: {
             algorithm = new HorizontalGradient();
-            break; }
+            break; 
+        }
     }
     algorithm->applyGradient(img);
 
@@ -132,8 +137,18 @@ int main() {
 //    cin >> outputFile;
 //    img.write(outputFile);
 
+    /* save image */
+    std::string outputFile;
+    std::cin >> outputFile;
+    if (outputFile.find((std::string)".png\n") != std::string::npos) {
+        img.write(outputFile);
+    } else if (outputFile.find((std::string)".") != std::string::npos) {
+        img.write(outputFile.substr(0,outputFile.find((std::string)".")) + ".png");
+    } else {
+        img.write(outputFile + ".png");
+    }
     /* Temp Auto Test PNG */
-    img.write("test1.png");
+    // img.write("test1.png");
     
     return 0;
 }
