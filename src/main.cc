@@ -13,8 +13,10 @@
 using namespace png;
 
 int main() {
-
-    std::cout<<"Please enter width"<<std::endl<<" :  ";
+    std::cout<<"-----------------------------------"<<
+    std::endl<<"xxx*** GRADIENT GENERATOR ++ ***xxx"<<
+    std::endl<<"-----------------------------------"<<std::endl<<std::endl;
+    std::cout<<"Please enter width in px"<<std::endl<<" :  ";
     std::string userWidth;
     std::getline (std::cin,userWidth);
     int widthBuf;
@@ -30,14 +32,14 @@ int main() {
             std::string dummy;
             ss >> dummy;
             widthBuf = 1000;
-        } else if (widthBuf == 0) {
+        } else if (widthBuf <= 0) {
            widthBuf = 1000; 
         }
     }
     const int width = widthBuf;
 
 
-    std::cout<<"Please enter height"<<std::endl<<" :  ";
+    std::cout<<"Please enter height in px"<<std::endl<<" :  ";
     std::string userHeight;
     std::getline (std::cin,userHeight);
     int heightBuf;
@@ -53,7 +55,7 @@ int main() {
             std::string dummy;
             ss >> dummy;
             heightBuf = 1000;
-        } else if (heightBuf == 0) {
+        } else if (heightBuf <= 0) {
             heightBuf = 1000;
         }
     }
@@ -138,15 +140,20 @@ int main() {
 //    img.write(outputFile);
 
     /* save image */
+
+    std::cout<<"Enter the output file name"<<std::endl<<" :  ";
     std::string outputFile;
+    std::string outputLocation;
     std::cin >> outputFile;
     if (outputFile.find((std::string)".png\n") != std::string::npos) {
-        img.write(outputFile);
-    } else if (outputFile.find((std::string)".") != std::string::npos) {
-        img.write(outputFile.substr(0,outputFile.find((std::string)".")) + ".png");
+       outputLocation = outputFile;
+    } else if (outputFile.find_last_of((std::string)".") != std::string::npos) {
+        outputLocation = outputFile.substr(0,outputFile.find_last_of((std::string)".")) + ".png";
     } else {
-        img.write(outputFile + ".png");
+        outputLocation = outputFile + ".png";
     }
+    img.write(outputLocation);
+    std::cout<<"File saved to $(pwd)/"<< outputLocation <<std::endl;
     /* Temp Auto Test PNG */
     // img.write("test1.png");
     

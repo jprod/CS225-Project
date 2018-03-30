@@ -7,7 +7,7 @@
 
 /* Dither function for smoother gradient */
 double dither(double &t, int x, int y) {
-    int ditherLvl = 3;
+    int ditherLvl = 2;
     for (int i = 1; i < ditherLvl; i ++) {
     ((y % (i+1) && x % (i+1)) || (!(y % (i+1)) && !(x % (i+1)))) ?
                         t += i : t -= i;
