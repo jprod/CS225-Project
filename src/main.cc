@@ -12,30 +12,7 @@
 
 using namespace png;
 
-void getInput(int& varBuf) {
-    std::string userVar;
-    std::getline (std::cin,userVar);
-    if (userVar.find_last_of((std::string)"px") != std::string::npos) {
-        userVar = userVar.substr(0,userVar.find_last_of((std::string)"px"));
-    }
-    if (userVar == "") {
-        varBuf = 1000;
-    } else {
-        std::stringstream ss;
-        ss<<userVar;
-        ss>>varBuf;
-        if (ss.fail()) {
-            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
-            ss.clear();
-            std::string dummy;
-            ss >> dummy;
-            varBuf = 1000;
-        } else if (varBuf <= 0) {
-            std::cout << "-Not reconized defaulting to 1000px-" << std::endl;
-            varBuf = 1000;
-        }
-    }
-}
+bool getInput(int& varBuf);
 
 int main() {
     std::cout<<std::endl;
@@ -43,14 +20,36 @@ int main() {
     std::cout<<"xxx*** GRADIENT GENERATOR ++ ***xxx"<<std::endl;
     std::cout<<"-----------------------------------"<<std::endl<<std::endl;
     
-    std::cout<<"Please enter width in px"<<std::endl<<" :  ";
+    /* Reading inputs for the image width */
+    std::cout<<"Please enter image width in px (or press enter for default 1000px)"<<std::endl<<" :  ";
     int widthBuf;
-    getInput(widthBuf);
+    bool widthFlag = true;
+    do {
+        try {
+            widthFlag = getInput(widthBuf);
+        }
+        catch(const std::invalid_argument& ERROR_MSG) {
+            std::cout<<ERROR_MSG.what()<<std::endl;
+            std::cout<<"Please re-enter width in px"<<std::endl<<" :  ";
+            widthFlag = false;
+        }
+    } while (!widthFlag);
     const int width = widthBuf;
 
-    std::cout<<"Please enter height in px"<<std::endl<<" :  ";
+    /* Reading inputs for the image height */
+    std::cout<<"Please enter image height in px (or press enter for default 1000px)"<<std::endl<<" :  ";
     int heightBuf;
-    getInput(heightBuf);
+    bool heightFlag = true;
+    do {
+        try {
+            heightFlag = getInput(heightBuf);
+        }
+        catch(const std::invalid_argument& ERROR_MSG) {
+            std::cout<<ERROR_MSG.what()<<std::endl;
+            std::cout<<"Please re-enter height in px"<<std::endl<<" :  ";
+            heightFlag = false;
+        }
+    } while (!heightFlag);
     const int height = heightBuf;
 
     /* Initialize height */
@@ -132,7 +131,6 @@ int main() {
 //    img.write(outputFile);
 
     /* save image */
-
     std::cout<<"Enter the output file name"<<std::endl<<" :  ";
     std::string outputFile;
     std::cin >> outputFile;
@@ -148,4 +146,31 @@ int main() {
     // img.write("test1.png");
     
     return 0;
+}
+
+bool getInput(int& varBuf) {
+    std::string userVar;
+    std::getline (std::cin,userVar);
+    if (userVar.rfind(std::string("px")) != std::string::npos) {
+        userVar = userVar.substr(0,userVar.rfind(std::string("px")));
+    }
+    if (userVar == "") {
+        // std::cout<<"IM AT POINT 1   ";
+        varBuf = 1000;
+        return true;
+    } else {
+        std::stringstream ss;
+        ss<<userVar;
+        ss>>varBuf;
+        if (ss.fail()) {
+            ss.clear();
+            std::string dummy;
+            ss >> dummy;
+            throw std::invalid_argument("-Invalid  Input-");
+        } else if (varBuf <= 0) {
+            throw std::invalid_argument("-Invalid Number-");
+        }
+        // std::cout<<"IM AT POINT 2   ";
+        return true;
+    }
 }
