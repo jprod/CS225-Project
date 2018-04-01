@@ -1,3 +1,4 @@
+// ANDREW STRICKLER 2018
 #include <iostream>
 #include <sstream>      // std::stringstream
 #include <string>

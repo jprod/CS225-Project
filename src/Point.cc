@@ -1,3 +1,4 @@
+// DANIEL STRUCK 2018
 #include "Point.hpp"
 
 Point::Point(int x, int y) {

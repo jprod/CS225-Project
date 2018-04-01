@@ -1,3 +1,4 @@
+// DANIEL STRUCK 2018
 #ifndef _POINT_H_
 #define _POINT_H_
 

@@ -1,3 +1,4 @@
+// DANIEL STRUCK 2018
 #include "TriRadialGradient.hpp"
 
 Point TriRadialGradient::randomPoint(int xMax, int yMin) {

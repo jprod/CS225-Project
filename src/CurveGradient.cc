@@ -1,3 +1,4 @@
+// JOSHUA RODRIGUEZ 2018
 #include "CurveGradient.hpp"
 
 double CurveGradient::applyCos(double x) {

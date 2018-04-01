@@ -1,3 +1,4 @@
+// JOSHUA RODRIGUEZ 2018
 #include "BezierHorizontalGradient.hpp"
 
 double dither(double &t, int x, int y) {

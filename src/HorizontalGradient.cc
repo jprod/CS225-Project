@@ -1,3 +1,4 @@
+// DANIEL STRUCK 2018
 #include "HorizontalGradient.hpp"
 
 void HorizontalGradient::applyGradient(image<rgba_pixel> &img) {

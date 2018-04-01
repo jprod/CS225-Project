@@ -1,3 +1,4 @@
+// DANIEL STRUCK 2018
 #ifndef _CURVE_GRADIENT_H_
 #define _CURVE_GRADIENT_H_
 
