@@ -15,7 +15,7 @@ cyglibpngdir = ${vend_prefix}/libpngCYG/include/libpng16
 cyglibpng = ${vend_prefix}/libpngCYG/lib/libpng16.a
 cyglibz = ${vend_prefix}/zlibCYG/lib/libz.a 
 
-OBJ = main.o HorizontalGradient.o CurveGradient.o ColorPoint.o BezierHorizontalGradient.o TriRadialGradient.o
+OBJ = main.o HorizontalGradient.o CurveGradient.o ColorPoint.o BezierHorizontalGradient.o Point.o TriRadialGradient.o
 
 main: $(OBJ)
 	$(CC)  $(CFLAGS) $(OBJ) -o main $(libpng) $(libz)
@@ -36,6 +36,9 @@ ColorPoint.o: ColorPoint.hpp ColorPoint.cc
 BezierHorizontalGradient.o: BezierHorizontalGradient.hpp BezierHorizontalGradient.cc
 	$(CC)  $(CFLAGS) -c BezierHorizontalGradient.cc -I $(libpngdir)
 
+Point.o: Point.hpp Point.cc
+	$(CC)  $(CFLAGS) -c Point.cc -I $(libpngdir)
+
 TriRadialGradient.o: TriRadialGradient.hpp TriRadialGradient.cc
 	$(CC)  $(CFLAGS) -c TriRadialGradient.cc -I $(libpngdir)
 
@@ -45,11 +48,10 @@ cyg:
 	$(CCCYG)  $(CFLAGS) -c CurveGradient.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c ColorPoint.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c BezierHorizontalGradient.cc  -I $(cyglibpngdir)
+	$(CCCYG)  $(CFLAGS) -c Point.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c TriRadialGradient.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) $(OBJ) -o main $(cyglibpng) $(cyglibz)
 	rm $(OBJ)
 	
 clean: 
 	rm -f $(OBJ)
-
-
