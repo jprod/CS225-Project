@@ -25,4 +25,3 @@ double bindBounds(double &t) {
         t = 0;
     return t;
 }
-

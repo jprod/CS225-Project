@@ -107,42 +107,7 @@ int main() {
         }
     }
     algorithm->applyGradient(img);
-
-
-    // apply some gradient
-    // GradientAlgorithm *algorithm;
-    // algorithm = new CurveGradient();
-    // algorithm->applyGradient(img);
-
-    /* Inputs to the parameters of the bezier funct */
-    // long long p0;
-    // std::cout << "Color Point 0: ";
-    // std::cin >> std::hex >> p0;
-    // long long p1;
-    // std::cout << "Color Point 1: ";
-    // std::cin >> std::hex >> p1;
-    // long long p2;
-    // std::cout << "Color Point 2: ";
-    // std::cin >> std::hex >> p2;
-    // long long param[20] = {p0, p1, p2};
-    // int paramLen = 3;
-
-    /* Bezier Function */
-//    BezierHorizontalGradient algorithm();
-//    algorithm.dispColors();
-
-    // TriRadialGradient algorithm;
     
-    /* Apply gradient to image */
-//    algorithm.applyGradient(img);
-    
-    // save the image
-//    using namespace std;
-//    string outputFile;
-//    cout << "output file:";
-//    cin >> outputFile;
-//    img.write(outputFile);
-
     /* save image */
     std::cout<<"Enter the output file name"<<std::endl<<" :  ";
     std::string outputFile;
