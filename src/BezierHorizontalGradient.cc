@@ -28,55 +28,57 @@ double bindBounds(double &t) {
 }
 
 template<class T>
-T bezierQuad(double t, T p0, T p1, T p2) {
+T bezierLinear(double t, T point[]) {
     double nt = (1.0 - t);
     /* Bezier Quadraic Formula */
-    return (nt * (nt * p0 + t * p1) + t * (nt * p1 + t * p2));
+    return (nt * point[0] + t * point[1]);
+}
+
+template<class T>
+T bezierQuad(double t, T point[]) {
+    double nt = (1.0 - t);
+    /* Bezier Quadraic Formula */
+    return (nt * (nt * point[0] + t * point[1]) + t * (nt * point[1] + t * point[2]));
 }
 
 template<class T>
 T bezierRecur(double t, T point[], int pointLen) {
     /* When the function can be evalutated in a quadratic way 
         Or recurse with formula*/
-    if (pointLen <= 3) {
-        return bezierQuad(t, point[0], point[1], point[2]);
+    if (pointLen <= 2) {
+        return bezierLinear(t, point);
     } else {
         double nt = (1.0 - t);
         return (nt * bezierRecur(t, point, pointLen - 1) + t * bezierRecur(t, point + 1, pointLen - 1));
     }
 }
 
-long long BezierHorizontalGradient::redMask    = 0xFF000000;
-long long BezierHorizontalGradient::greenMask  = 0x00FF0000;
-long long BezierHorizontalGradient::blueMask   = 0x0000FF00;
-long long BezierHorizontalGradient::alphaMask  = 0x000000FF;
-
 void BezierHorizontalGradient::dispColors() {
     std::cout << colorBuf[0].red << colorBuf[0].green << colorBuf[0].blue <<  std::endl;
     std::cout << colorBuf[1].red << colorBuf[1].green << colorBuf[1].blue <<  std::endl;
     std::cout << colorBuf[2].red << colorBuf[2].green << colorBuf[2].blue <<  std::endl;
-    std::cout << bezierQuad(0.8, colorBuf[0].red, colorBuf[1].red, colorBuf[2].red) << std::endl;
+    std::cout << bezierQuad(0.8, colorBuf) << std::endl;
 }
 
-BezierHorizontalGradient::BezierHorizontalGradient(long long p0[], int pointLen) {
-    for (int i = 0; i < pointLen; i++) {
+BezierHorizontalGradient::BezierHorizontalGradient(long long color[], int colorLen) {
+    for (int i = 0; i < colorLen; i++) {
         /* Apply mask and move bits */
-        colorBuf[i].red = (p0[i] & redMask) >> 6*4;
-        colorBuf[i].green = (p0[i] & greenMask) >> 4*4;
-        colorBuf[i].blue = (p0[i] & blueMask) >> 2*4;
-        colorBuf[i].alpha = (p0[i] & alphaMask);
+        colorBuf[i].red = (color[i] & ColorPoint::redMask) >> 6*4;
+        colorBuf[i].green = (color[i] & ColorPoint::greenMask) >> 4*4;
+        colorBuf[i].blue = (color[i] & ColorPoint::blueMask) >> 2*4;
+        colorBuf[i].alpha = (color[i] & ColorPoint::alphaMask);
     }
-    colorBufLen = pointLen;
+    colorBufLen = colorLen;
 }
 
 BezierHorizontalGradient::BezierHorizontalGradient() {
-    long long p0[4] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
+    long long color[4] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
     for (int i = 0; i < 4; i++) {
         /* Apply mask and move bits */
-        colorBuf[i].red = (p0[i] & redMask) >> 6*4;
-        colorBuf[i].green = (p0[i] & greenMask) >> 4*4;
-        colorBuf[i].blue = (p0[i] & blueMask) >> 2*4;
-        colorBuf[i].alpha = (p0[i] & alphaMask);
+        colorBuf[i].red = (color[i] & ColorPoint::redMask) >> 6*4;
+        colorBuf[i].green = (color[i] & ColorPoint::greenMask) >> 4*4;
+        colorBuf[i].blue = (color[i] & ColorPoint::blueMask) >> 2*4;
+        colorBuf[i].alpha = (color[i] & ColorPoint::alphaMask);
     }
     colorBufLen = 4;
 }

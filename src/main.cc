@@ -13,7 +13,9 @@
 
 using namespace png;
 
-bool getInput(int& varBuf);
+bool getResolution(int& varBuf);
+
+bool getColor(long long color[], int& colorLen, int colorMin, int colorMax);
 
 int main() {
     std::cout<<std::endl;
@@ -27,7 +29,7 @@ int main() {
     bool widthFlag = true;
     do {
         try {
-            widthFlag = getInput(widthBuf);
+            widthFlag = getResolution(widthBuf);
         }
         catch(const std::invalid_argument& ERROR_MSG) {
             std::cout<<ERROR_MSG.what()<<std::endl;
@@ -43,7 +45,7 @@ int main() {
     bool heightFlag = true;
     do {
         try {
-            heightFlag = getInput(heightBuf);
+            heightFlag = getResolution(heightBuf);
         }
         catch(const std::invalid_argument& ERROR_MSG) {
             std::cout<<ERROR_MSG.what()<<std::endl;
@@ -66,23 +68,30 @@ int main() {
     std::cin>>user;
     while (! std::cin || user < 1 || user > 4) {
         std::cin.clear(); //clear error flag
-        std::cin.ignore(INT_MAX, '\n'); 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         std::cout<<"Error. Try again. ";
         std::cout<<"Enter a number between 1 and 4 (inclusive)"<<std::endl<<" :  ";
         std::cin>>user;
     }
+    std::cin.clear(); //clear error flag
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
     GradientAlgorithm *algorithm;
     switch(user) {
         case 1: {
-            algorithm = new HorizontalGradient();
-            break; 
-        }
+            long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
+            int colorLen = 2;
+            getColor(color, colorLen, 2, 2);
+            algorithm = new HorizontalGradient(color);
+            break; }
         case 2: {
             algorithm = new TriRadialGradient();
-            break; 
-        }
+            break; }
         case 3: {
-            algorithm = new BezierHorizontalGradient();
+            long long color[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
+            int colorLen = 4;
+            getColor(color, colorLen, 2, 20);
+            std::cout<<colorLen;
+            algorithm = new BezierHorizontalGradient(color, colorLen);
             break; 
         }
         case 4: {
@@ -149,7 +158,7 @@ int main() {
     return 0;
 }
 
-bool getInput(int& varBuf) {
+bool getResolution(int& varBuf) {
     std::string userVar;
     std::getline (std::cin,userVar);
     if (userVar.rfind(std::string("px")) != std::string::npos) {
@@ -174,4 +183,29 @@ bool getInput(int& varBuf) {
         // std::cout<<"IM AT POINT 2   ";
         return true;
     }
+}
+
+bool getColor(long long color[], int& colorLen, int colorMin, int colorMax) {
+    std::string userVar;
+    bool contFlag =  true;
+    for (int i = 0; contFlag && i < colorMax; i++) {
+        if ((i + 1) > colorMin) {
+            std::cout << "Enter colors in hex or 'q' when done : ";
+        } else 
+            std::cout << "Enter colors in hex : ";
+        std::getline (std::cin,userVar);
+        // std::cout << "GOOD";
+        if ((i == 0 || (i + 1) > colorMin) && userVar == "q") {
+            contFlag = false;
+            // std::cout << " --CONTFLAG FALSE-- ";
+        } else {
+            std::stringstream ss;
+            ss << userVar;
+            ss >>  std::hex >> color[i];
+            colorLen = i + 1;
+            // std::cout << " --INPUT READ AS " << userVar << "-- ";
+        }
+        // std::cout << " --SAVED-- ";
+    }
+    return true;
 }

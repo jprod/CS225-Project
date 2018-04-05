@@ -1,5 +1,10 @@
 #include "ColorPoint.hpp"
 
+long long ColorPoint::redMask    = 0xFF000000;
+long long ColorPoint::greenMask  = 0x00FF0000;
+long long ColorPoint::blueMask   = 0x0000FF00;
+long long ColorPoint::alphaMask  = 0x000000FF;
+
 ColorPoint::ColorPoint(double red, double green, double blue, double alpha) {
     this->red = red;
     this->green = green;
@@ -30,4 +35,9 @@ ColorPoint operator*(double t, ColorPoint cp) {
     temp.blue = t * cp.blue;
     temp.alpha = t * cp.alpha;
     return temp;
+}
+
+std::ostream& operator<<(std::ostream& os, const ColorPoint& cp) {
+    os << cp.red << ", " << cp.blue << ", " << cp.green << ", " << cp.alpha;
+    return os;
 }
