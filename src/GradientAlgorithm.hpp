@@ -6,6 +6,12 @@
 
 using namespace png;
 
+double dither(double &t, int x, int y);
+
+double ditherConstant(double &t, int x, int y);
+
+double bindBounds(double &t);
+
 class GradientAlgorithm {
   public:
     virtual void applyGradient(image<rgba_pixel>&) = 0;

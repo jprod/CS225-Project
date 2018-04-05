@@ -90,12 +90,15 @@ int main() {
             long long color[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
             int colorLen = 4;
             getColor(color, colorLen, 2, 20);
-            std::cout<<colorLen;
+            std::cout<<color[1];
             algorithm = new BezierHorizontalGradient(color, colorLen);
             break; 
         }
         case 4: {
-            algorithm = new CurveGradient();
+            long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
+            int colorLen = 2;
+            getColor(color, colorLen, 2, 2);
+            algorithm = new CurveGradient(color);
             break; 
         }
         default: {
@@ -190,9 +193,9 @@ bool getColor(long long color[], int& colorLen, int colorMin, int colorMax) {
     bool contFlag =  true;
     for (int i = 0; contFlag && i < colorMax; i++) {
         if ((i + 1) > colorMin) {
-            std::cout << "Enter colors in hex or 'q' when done : ";
+            std::cout << "Enter colors in 8 byte hex or 'q' when done : ";
         } else 
-            std::cout << "Enter colors in hex : ";
+            std::cout << "Enter colors in 8 byte hex : ";
         std::getline (std::cin,userVar);
         // std::cout << "GOOD";
         if ((i == 0 || (i + 1) > colorMin) && userVar == "q") {
@@ -201,8 +204,17 @@ bool getColor(long long color[], int& colorLen, int colorMin, int colorMax) {
         } else {
             std::stringstream ss;
             ss << userVar;
+            long long colorTemp = color[i];
             ss >>  std::hex >> color[i];
-            colorLen = i + 1;
+            if (ss.fail() || userVar.length() < 8 || color[i] < 0) {
+                color[i] = colorTemp;
+                ss.clear();
+                std::string dummy;
+                ss >> dummy;
+                std::cout << "-Invalid  Input-" << std::endl;
+                i--;
+            } else
+                colorLen = i + 1;
             // std::cout << " --INPUT READ AS " << userVar << "-- ";
         }
         // std::cout << " --SAVED-- ";

@@ -31,7 +31,12 @@ public:
 
     /* Overload for << operations with a scalar */
     friend std::ostream& operator<<(std::ostream& os, const ColorPoint& cp);
-
 };
+
+/* Bezier Linear implementation; two points */
+ColorPoint linearGrad(double t, ColorPoint point[]);
+
+/* Bezier Recursion for n number of Bezier points */
+ColorPoint bezierRecur(double t, ColorPoint point[], int pointLen);
 
 #endif // _COLOR_POINT_H_

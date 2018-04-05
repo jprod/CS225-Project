@@ -5,8 +5,6 @@
 #include "GradientAlgorithm.hpp"
 #include "ColorPoint.hpp"
 
-template<class T>
-T linearGrad(double t, T point[]);
 
 class HorizontalGradient: public GradientAlgorithm {
     ColorPoint colorBuf[2];

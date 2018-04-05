@@ -41,3 +41,22 @@ std::ostream& operator<<(std::ostream& os, const ColorPoint& cp) {
     os << cp.red << ", " << cp.blue << ", " << cp.green << ", " << cp.alpha;
     return os;
 }
+
+/* Bezier Linear implementation; two points */
+ColorPoint linearGrad(double t, ColorPoint point[]) {
+    double nt = (1.0 - t);
+    return (nt * point[0] + t * point[1]);
+}
+
+/* Bezier Recursion for n number of Bezier points */
+ColorPoint bezierRecur(double t, ColorPoint point[], int pointLen) {
+    /* When the function can be evalutated in a linear way 
+        Or recurse with formula*/
+    if (pointLen <= 2) {
+        return linearGrad(t, point);
+    } else {
+        double nt = (1.0 - t);
+        return (nt * bezierRecur(t, point, pointLen - 1) + t * bezierRecur(t, point + 1, pointLen - 1));
+    }
+}
+

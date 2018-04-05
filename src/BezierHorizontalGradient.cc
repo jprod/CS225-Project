@@ -1,63 +1,11 @@
 // JOSHUA RODRIGUEZ 2018
 #include "BezierHorizontalGradient.hpp"
 
-double dither(double &t, int x, int y) {
-    int ditherLvl = 2;
-    for (int i = 1; i < ditherLvl; i ++) {
-    ((y % (i+1) && x % (i+1)) || (!(y % (i+1)) && !(x % (i+1)))) ?
-                        t += i : t -= i;
-    }
-    return t;
-}
-
-double ditherConstant(double &t, int x, int y) {
-    int ditherLvl = 2;
-    for (int i = 1; i < ditherLvl; i ++) {
-    ((y % (i+1) && x % (i+1)) || (!(y % (i+1)) && !(x % (i+1)))) ?
-                        t += 1 : t -= 1;
-    }
-    return t;
-}
-
-double bindBounds(double &t) {
-    if (t > 1) 
-        t = 1;
-    else if (t < 0) 
-        t = 0;
-    return t;
-}
-
-template<class T>
-T bezierLinear(double t, T point[]) {
-    double nt = (1.0 - t);
-    /* Bezier Quadraic Formula */
-    return (nt * point[0] + t * point[1]);
-}
-
-template<class T>
-T bezierQuad(double t, T point[]) {
-    double nt = (1.0 - t);
-    /* Bezier Quadraic Formula */
-    return (nt * (nt * point[0] + t * point[1]) + t * (nt * point[1] + t * point[2]));
-}
-
-template<class T>
-T bezierRecur(double t, T point[], int pointLen) {
-    /* When the function can be evalutated in a quadratic way 
-        Or recurse with formula*/
-    if (pointLen <= 2) {
-        return bezierLinear(t, point);
-    } else {
-        double nt = (1.0 - t);
-        return (nt * bezierRecur(t, point, pointLen - 1) + t * bezierRecur(t, point + 1, pointLen - 1));
-    }
-}
-
 void BezierHorizontalGradient::dispColors() {
     std::cout << colorBuf[0].red << colorBuf[0].green << colorBuf[0].blue <<  std::endl;
     std::cout << colorBuf[1].red << colorBuf[1].green << colorBuf[1].blue <<  std::endl;
     std::cout << colorBuf[2].red << colorBuf[2].green << colorBuf[2].blue <<  std::endl;
-    std::cout << bezierQuad(0.8, colorBuf) << std::endl;
+    std::cout << bezierRecur(0.8, colorBuf, 3) << std::endl;
 }
 
 BezierHorizontalGradient::BezierHorizontalGradient(long long color[], int colorLen) {

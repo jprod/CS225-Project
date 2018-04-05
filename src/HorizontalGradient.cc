@@ -1,12 +1,6 @@
 // DANIEL STRUCK 2018
 #include "HorizontalGradient.hpp"
 
-template<class T>
-T linearGrad(double t, T point[]) {
-    double nt = (1.0 - t);
-    return (nt * point[0] + t * point[1]);
-}
-
 void HorizontalGradient::applyGradient(image<rgba_pixel> &img) {
     for (int x = 0; x < (int)img.get_width(); x++) {
         for (int y = 0; y < (int)img.get_height(); y++) {
