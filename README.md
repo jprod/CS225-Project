@@ -7,3 +7,5 @@
     Decided to switch to an image project with png++*
       
 # Gradient Generation with png++
+
+An implementation for n control point bezier curve gradient png images with png++ on cygwin.

@@ -8,7 +8,6 @@
 #include "GradientAlgorithm.hpp"
 #include "HorizontalGradient.hpp"
 #include "TriRadialGradient.hpp"
-#include "BezierHorizontalGradient.hpp"
 #include "CurveGradient.hpp"
 
 using namespace png;
@@ -63,7 +62,7 @@ int main() {
 
     
     std::cout<<"Please enter"<<std::endl<<"1 for HorizontalGradient"<<std::endl<<"2 for TriRadialGradient"
-    <<std::endl<<"3 for BezierHorizontalGradient"<<std::endl<<"4 for CurveGradient"<<std::endl<<" :  ";
+    <<std::endl<<"3 for HorizontalGradient"<<std::endl<<"4 for CurveGradient"<<std::endl<<" :  ";
     int user;
     std::cin>>user;
     while (! std::cin || user < 1 || user > 4) {
@@ -81,7 +80,7 @@ int main() {
             long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
             int colorLen = 2;
             getColor(color, colorLen, 2, 2);
-            algorithm = new HorizontalGradient(color);
+            algorithm = new HorizontalGradient(color, colorLen);
             break; }
         case 2: {
             algorithm = new TriRadialGradient();
@@ -91,7 +90,7 @@ int main() {
             int colorLen = 4;
             getColor(color, colorLen, 2, 20);
             std::cout<<color[1];
-            algorithm = new BezierHorizontalGradient(color, colorLen);
+            algorithm = new HorizontalGradient(color, colorLen);
             break; 
         }
         case 4: {
