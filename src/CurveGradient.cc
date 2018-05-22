@@ -3,19 +3,32 @@
 
 
 double CurveGradient::applyCos(double x, int height) {
-    double horizontalScale = 100.0;
-    double verticalScale = 200.0;
-    x /= horizontalScale; // horizontal scaling
-    return verticalScale * cos(x) + 0.5 * height;
+    double period = 500.0;
+    double amplitude = 200.0;
+    x *= (20)/(period * M_PI); // horizontal scaling
+    return amplitude * cos(x) + 0.5 * height;
 }
 
 void CurveGradient::applyGradient(image<rgba_pixel> &img) {
-    for (int x = 0; x < (int)img.get_width(); x++) {
-        // apply a function
-        double fnx = applyCos(x, (int)img.get_height());
-        for (int y = 0; y < (int)img.get_height(); y++) {
+    int domain = 100;
+    int sampleFq = 6;
+    int w = (int)img.get_width();
+    int h = (int)img.get_height();
+    double fn [w + 2 * domain];
+    for (int d = 0; d < 2 * domain + w; d++)
+        fn[d] = applyCos(d - domain, h);
+    for (int x = 0; x < w; x++) {
+        for (int y = 0; y < h; y++) {
+            double distance = abs(fn[x + domain]-y);
+            for (int dx = -1 * domain; dx < domain; dx += sampleFq) {
+                double _dist = sqrt(dx * dx + pow(fn[dx + x + domain] - y, 2));
+                // apply a function
+                if (distance > _dist)
+                    distance = _dist;
+            }
             // find distance from y to yPos, scale to color max, scale to image height
-            double t = abs((double)y - fnx)/img.get_height();
+            // std::cout<<distance;
+            double t = distance/h;
             // apply gradient
             ColorPoint cg = linearGrad(t, colorBuf);
             img.set_pixel(x, y, rgba_pixel(cg.red, cg.green, cg.blue, cg.alpha));

@@ -1,4 +1,4 @@
-// ANDREW STRICKLER 2018
+// JOSHUA RODRIGUEZ 2018
 #include <iostream>
 #include <sstream>      // std::stringstream
 #include <string>
@@ -82,7 +82,7 @@ int main() {
             break; 
         }
         case 2: {
-            long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
+            long long color[2] = {0xFFFFFFFF, 0x000000FF};
             int colorLen = 2;
             getColor(color, colorLen, 2, 2);
             algorithm = new CurveGradient(color);
