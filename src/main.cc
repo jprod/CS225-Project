@@ -7,7 +7,6 @@
 #include "../vendor/png++-0.2.9/png.hpp"
 #include "GradientAlgorithm.hpp"
 #include "HorizontalGradient.hpp"
-#include "TriRadialGradient.hpp"
 #include "CurveGradient.hpp"
 
 using namespace png;
@@ -61,8 +60,7 @@ int main() {
     srand(time(NULL));
 
     
-    std::cout<<"Please enter"<<std::endl<<"1 for HorizontalGradient"<<std::endl<<"2 for TriRadialGradient"
-    <<std::endl<<"3 for HorizontalGradient"<<std::endl<<"4 for CurveGradient"<<std::endl<<" :  ";
+    std::cout<<"Please enter"<<std::endl<<"1 for HorizontalGradient"<<std::endl<<"2 for CurveGradient"<<std::endl<<" :  ";
     int user;
     std::cin>>user;
     while (! std::cin || user < 1 || user > 4) {
@@ -77,23 +75,13 @@ int main() {
     GradientAlgorithm *algorithm;
     switch(user) {
         case 1: {
-            long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
-            int colorLen = 2;
-            getColor(color, colorLen, 2, 2);
-            algorithm = new HorizontalGradient(color, colorLen);
-            break; }
-        case 2: {
-            algorithm = new TriRadialGradient();
-            break; }
-        case 3: {
             long long color[20] = {0xFFFFFFE8, 0xAAAA66FF, 0x330033FF, 0x000000E8};
             int colorLen = 4;
             getColor(color, colorLen, 2, 20);
-            std::cout<<color[1];
             algorithm = new HorizontalGradient(color, colorLen);
             break; 
         }
-        case 4: {
+        case 2: {
             long long color[2] = {0xFFFF00FF, 0x00FFFFFF};
             int colorLen = 2;
             getColor(color, colorLen, 2, 2);

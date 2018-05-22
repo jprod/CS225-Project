@@ -20,7 +20,7 @@ cllibpngdir = C:\CLibs\MVS\libpng-1.6.34
 cllibpng = C:\CLibs\MVS\libpng-1.6.34\libpng.lib
 cllibz = C:\CLibs\MVS\zlib
 
-OBJ = main.o GradientAlgorithm.o ColorPoint.o HorizontalGradient.o CurveGradient.o Point.o TriRadialGradient.o
+OBJ = main.o GradientAlgorithm.o ColorPoint.o HorizontalGradient.o CurveGradient.o
 GOBJ = GradientAlgorithm.o
 
 main: $(OBJ)
@@ -42,20 +42,12 @@ HorizontalGradient.o: HorizontalGradient.hpp HorizontalGradient.cc
 CurveGradient.o: CurveGradient.hpp CurveGradient.cc
 	$(CC)  $(CFLAGS) -c CurveGradient.cc -I $(libpngdir)
 
-Point.o: Point.hpp Point.cc
-	$(CC)  $(CFLAGS) -c Point.cc -I $(libpngdir)
-
-TriRadialGradient.o: TriRadialGradient.hpp TriRadialGradient.cc
-	$(CC)  $(CFLAGS) -c TriRadialGradient.cc -I $(libpngdir)
-
 cyg:
 	$(CCCYG)  $(CFLAGS) -c main.cc -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c GradientAlgorithm.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c ColorPoint.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c HorizontalGradient.cc -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) -c CurveGradient.cc  -I $(cyglibpngdir)
-	$(CCCYG)  $(CFLAGS) -c Point.cc  -I $(cyglibpngdir)
-	$(CCCYG)  $(CFLAGS) -c TriRadialGradient.cc  -I $(cyglibpngdir)
 	$(CCCYG)  $(CFLAGS) $(OBJ) -o main $(cyglibpng) $(cyglibz)
 	rm $(OBJ)
 	
@@ -65,8 +57,6 @@ cl:
 	$(CCCL)  $(CFLAGS) -c ColorPoint.cc  -I $(cllibpngdir)
 	$(CCCL)  $(CFLAGS) -c HorizontalGradient.cc -I $(cllibpngdir)
 	$(CCCL)  $(CFLAGS) -c CurveGradient.cc  -I $(cllibpngdir)
-	$(CCCL)  $(CFLAGS) -c Point.cc  -I $(cllibpngdir)
-	$(CCCL)  $(CFLAGS) -c TriRadialGradient.cc  -I $(cllibpngdir)
 	$(CCCL)  $(CFLAGS) $(OBJ) -o main $(cllibpng) $(cllibz)
 	rm $(OBJ)
 	
